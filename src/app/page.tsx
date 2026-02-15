@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MemoryProvider, useMemory } from '@/context/MemoryContext';
 import Header from '@/components/Header';
@@ -12,6 +12,12 @@ import AddMemoryModal from '@/components/AddMemoryModal';
 function MainContent() {
     const { state, addMemory, deleteMemory, setViewMode } = useMemory();
     const [showModal, setShowModal] = useState(false);
+
+    const handleDelete = useCallback(async (id: string) => {
+        const confirmed = window.confirm('Are you sure you want to delete this memory? This action cannot be undone.');
+        if (!confirmed) return;
+        await deleteMemory(id);
+    }, [deleteMemory]);
 
     return (
         <div className="min-h-screen bg-cream-50">
@@ -28,8 +34,8 @@ function MainContent() {
                             transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                         >
                             <TravelView
-                                memories={state.memories}
-                                onDelete={deleteMemory}
+                                memories={state.memories.filter(m => m.mode_type === 'travel')}
+                                onDelete={handleDelete}
                             />
                         </motion.div>
                     ) : (
@@ -41,8 +47,8 @@ function MainContent() {
                             transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                         >
                             <StaticView
-                                memories={state.memories}
-                                onDelete={deleteMemory}
+                                memories={state.memories.filter(m => m.mode_type === 'static')}
+                                onDelete={handleDelete}
                             />
                         </motion.div>
                     )}

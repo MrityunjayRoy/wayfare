@@ -1,17 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db, { initDb } from '@/lib/db';
+import getDb, { initDb } from '@/lib/db';
 import { put } from '@vercel/blob';
 import { Memory } from '@/lib/types';
+import { getSessionFromCookies } from '@/lib/auth';
 
-// GET /api/memories — fetch all memories
+// GET /api/memories — fetch all memories for the authenticated user
 export async function GET() {
     try {
         await initDb();
-        const result = await db.execute(
-            'SELECT * FROM memories ORDER BY assigned_date ASC, created_at ASC'
-        );
+        const session = await getSessionFromCookies();
+        if (!session) {
+            return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+        }
+
+        const db = getDb();
+        const result = await db.execute({
+            sql: 'SELECT * FROM memories WHERE user_id = ? ORDER BY assigned_date ASC, created_at ASC',
+            args: [session.userId],
+        });
         const memories: Memory[] = result.rows.map((row) => ({
             id: row.id as string,
+            user_id: row.user_id as string,
             image_url: row.image_url as string,
             assigned_date: row.assigned_date as string,
             message: row.message as string | undefined,
@@ -25,10 +34,16 @@ export async function GET() {
     }
 }
 
-// POST /api/memories — create a new memory
+// POST /api/memories — create a new memory for the authenticated user
 export async function POST(request: NextRequest) {
     try {
         await initDb();
+        const session = await getSessionFromCookies();
+        if (!session) {
+            return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+        }
+
+        const db = getDb();
         const formData = await request.formData();
         const file = formData.get('image') as File;
         const assignedDate = formData.get('assigned_date') as string;
@@ -49,12 +64,13 @@ export async function POST(request: NextRequest) {
         const createdAt = new Date().toISOString();
 
         await db.execute({
-            sql: 'INSERT INTO memories (id, image_url, assigned_date, message, mode_type, created_at) VALUES (?, ?, ?, ?, ?, ?)',
-            args: [id, blob.url, assignedDate, message || null, modeType, createdAt],
+            sql: 'INSERT INTO memories (id, user_id, image_url, assigned_date, message, mode_type, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            args: [id, session.userId, blob.url, assignedDate, message || null, modeType, createdAt],
         });
 
         const memory: Memory = {
             id,
+            user_id: session.userId,
             image_url: blob.url,
             assigned_date: assignedDate,
             message: message || undefined,
