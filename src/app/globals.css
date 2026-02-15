@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Sage Green Palette */
   --color-sage-50: #f0f4f0;
@@ -31,6 +33,18 @@
   --color-slate-800: #1e293b;
   --color-slate-900: #0f172a;
 
+  /* Dark surface palette */
+  --color-dark-50: #1a1c20;
+  --color-dark-100: #1e2025;
+  --color-dark-200: #24262c;
+  --color-dark-300: #2a2d34;
+  --color-dark-400: #32353d;
+  --color-dark-500: #3a3e47;
+  --color-dark-600: #484c56;
+  --color-dark-700: #5a5e69;
+  --color-dark-800: #70747f;
+  --color-dark-900: #8a8e99;
+
   /* Font */
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
@@ -60,6 +74,12 @@
     color: var(--color-slate-700);
     line-height: 1.6;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body {
+    background-color: var(--color-dark-50);
+    color: var(--color-slate-300);
   }
 
   /* Custom scrollbar */
@@ -78,5 +98,13 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-sage-300);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: var(--color-dark-500);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dark-600);
   }
 }

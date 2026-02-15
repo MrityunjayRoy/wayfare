@@ -59,13 +59,13 @@ export default function StaticView({ memories, onDelete }: StaticViewProps) {
     if (memories.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center h-[calc(100vh-80px)] text-center px-4">
-                <div className="w-20 h-20 rounded-full bg-sage-100 flex items-center justify-center mb-4">
+                <div className="w-20 h-20 rounded-full bg-sage-100 dark:bg-dark-300 flex items-center justify-center mb-4">
                     <span className="text-3xl">🖼️</span>
                 </div>
-                <h3 className="text-lg font-medium text-slate-600 mb-2">
+                <h3 className="text-lg font-medium text-slate-600 dark:text-slate-300 mb-2">
                     Your gallery is empty
                 </h3>
-                <p className="text-sm text-slate-400 max-w-xs">
+                <p className="text-sm text-slate-400 dark:text-slate-500 max-w-xs">
                     Add your first memory to see it showcased here in a beautiful gallery.
                 </p>
             </div>
@@ -110,7 +110,7 @@ export default function StaticView({ memories, onDelete }: StaticViewProps) {
                                         ease: [0.25, 0.46, 0.45, 0.94],
                                     }}
                                     onClick={() => openLightbox(memory.id)}
-                                    className="group relative cursor-pointer rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 bg-white border border-sage-100/30"
+                                    className="group relative cursor-pointer rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 bg-white dark:bg-dark-200 border border-sage-100/30 dark:border-dark-400/30"
                                 >
                                     <div className="overflow-hidden">
                                         <img
@@ -144,7 +144,7 @@ export default function StaticView({ memories, onDelete }: StaticViewProps) {
                                             e.stopPropagation();
                                             onDelete(memory.id);
                                         }}
-                                        className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-red-50 hover:text-red-500 cursor-pointer text-slate-400"
+                                        className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 dark:bg-dark-300/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-500 cursor-pointer text-slate-400"
                                     >
                                         <FiTrash2 size={12} />
                                     </button>

@@ -49,7 +49,7 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen bg-cream-50 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-cream-50 dark:bg-dark-50 flex items-center justify-center p-4 transition-colors duration-300">
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -61,21 +61,21 @@ export default function RegisterPage() {
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sage-400 to-sage-600 flex items-center justify-center shadow-card mx-auto mb-4">
                         <span className="text-white text-2xl font-bold">W</span>
                     </div>
-                    <h1 className="text-2xl font-semibold text-slate-800 tracking-tight">Create an account</h1>
-                    <p className="text-sm text-slate-400 mt-1">Start your Wayfare journey</p>
+                    <h1 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 tracking-tight">Create an account</h1>
+                    <p className="text-sm text-slate-400 dark:text-slate-500 mt-1">Start your Wayfare journey</p>
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-card p-8 space-y-5">
+                <form onSubmit={handleSubmit} className="bg-white dark:bg-dark-200 rounded-3xl shadow-card p-8 space-y-5">
                     {error && (
-                        <div className="px-4 py-2.5 rounded-xl bg-red-50 border border-red-200/60 text-sm text-red-600">
+                        <div className="px-4 py-2.5 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200/60 dark:border-red-800/40 text-sm text-red-600 dark:text-red-400">
                             {error}
                         </div>
                     )}
 
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-slate-600 mb-2">
-                            <FiUser size={14} className="text-sage-500" />
+                        <label className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
+                            <FiUser size={14} className="text-sage-500 dark:text-sage-400" />
                             Username
                         </label>
                         <input
@@ -86,14 +86,14 @@ export default function RegisterPage() {
                             required
                             minLength={3}
                             maxLength={30}
-                            className="w-full px-4 py-3 bg-cream-50 rounded-xl border border-sage-200/60 text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 bg-cream-50 dark:bg-dark-300 rounded-xl border border-sage-200/60 dark:border-dark-500 text-sm text-slate-700 dark:text-slate-200 placeholder:text-slate-300 dark:placeholder:text-dark-700 focus:outline-none focus:ring-2 focus:ring-sage-300 dark:focus:ring-sage-600 focus:border-transparent transition-all"
                         />
-                        <p className="text-xs text-slate-400 mt-1">3-30 characters</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">3-30 characters</p>
                     </div>
 
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-slate-600 mb-2">
-                            <FiLock size={14} className="text-sage-500" />
+                        <label className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
+                            <FiLock size={14} className="text-sage-500 dark:text-sage-400" />
                             Password
                         </label>
                         <input
@@ -103,14 +103,14 @@ export default function RegisterPage() {
                             placeholder="Create a password"
                             required
                             minLength={6}
-                            className="w-full px-4 py-3 bg-cream-50 rounded-xl border border-sage-200/60 text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 bg-cream-50 dark:bg-dark-300 rounded-xl border border-sage-200/60 dark:border-dark-500 text-sm text-slate-700 dark:text-slate-200 placeholder:text-slate-300 dark:placeholder:text-dark-700 focus:outline-none focus:ring-2 focus:ring-sage-300 dark:focus:ring-sage-600 focus:border-transparent transition-all"
                         />
-                        <p className="text-xs text-slate-400 mt-1">Minimum 6 characters</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Minimum 6 characters</p>
                     </div>
 
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-slate-600 mb-2">
-                            <FiLock size={14} className="text-sage-500" />
+                        <label className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
+                            <FiLock size={14} className="text-sage-500 dark:text-sage-400" />
                             Confirm Password
                         </label>
                         <input
@@ -120,7 +120,7 @@ export default function RegisterPage() {
                             placeholder="Confirm your password"
                             required
                             minLength={6}
-                            className="w-full px-4 py-3 bg-cream-50 rounded-xl border border-sage-200/60 text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 bg-cream-50 dark:bg-dark-300 rounded-xl border border-sage-200/60 dark:border-dark-500 text-sm text-slate-700 dark:text-slate-200 placeholder:text-slate-300 dark:placeholder:text-dark-700 focus:outline-none focus:ring-2 focus:ring-sage-300 dark:focus:ring-sage-600 focus:border-transparent transition-all"
                         />
                     </div>
 
@@ -143,9 +143,9 @@ export default function RegisterPage() {
                         )}
                     </button>
 
-                    <p className="text-center text-sm text-slate-400">
+                    <p className="text-center text-sm text-slate-400 dark:text-slate-500">
                         Already have an account?{' '}
-                        <Link href="/login" className="text-sage-600 font-medium hover:text-sage-700 transition-colors">
+                        <Link href="/login" className="text-sage-600 dark:text-sage-400 font-medium hover:text-sage-700 dark:hover:text-sage-300 transition-colors">
                             Sign in
                         </Link>
                     </p>

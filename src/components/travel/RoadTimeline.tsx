@@ -18,13 +18,13 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
     if (memories.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-                <div className="w-20 h-20 rounded-full bg-sage-100 flex items-center justify-center mb-4">
+                <div className="w-20 h-20 rounded-full bg-sage-100 dark:bg-dark-300 flex items-center justify-center mb-4">
                     <span className="text-3xl">🛤️</span>
                 </div>
-                <h3 className="text-lg font-medium text-slate-600 mb-2">
+                <h3 className="text-lg font-medium text-slate-600 dark:text-slate-300 mb-2">
                     Your journey begins here
                 </h3>
-                <p className="text-sm text-slate-400 max-w-xs">
+                <p className="text-sm text-slate-400 dark:text-slate-500 max-w-xs">
                     Tap the + button to add your first memory and start building your road trip.
                 </p>
             </div>
@@ -47,7 +47,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
     return (
         <div className="relative py-8 px-4 max-w-4xl mx-auto">
             {/* Central road line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-gradient-to-b from-sage-200 via-sage-300 to-sage-200" />
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-gradient-to-b from-sage-200 dark:from-dark-400 via-sage-300 dark:via-dark-500 to-sage-200 dark:to-dark-400" />
 
             {/* Start marker */}
             <div className="relative flex justify-center mb-8">
@@ -69,7 +69,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                         transition={{ duration: 0.4, delay: groupIndex * 0.1 }}
                         className="relative flex justify-center mb-6 mt-4"
                     >
-                        <span className="relative z-10 px-4 py-1.5 rounded-full bg-sage-100 text-xs font-semibold text-sage-700 tracking-wider uppercase shadow-soft border border-sage-200/50">
+                        <span className="relative z-10 px-4 py-1.5 rounded-full bg-sage-100 dark:bg-dark-300 text-xs font-semibold text-sage-700 dark:text-sage-300 tracking-wider uppercase shadow-soft border border-sage-200/50 dark:border-dark-400/50">
                             {group.month}
                         </span>
                     </motion.div>
@@ -89,7 +89,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                             scale: isHovered ? 1.5 : 1,
                                             backgroundColor: isHovered ? '#5f8a5f' : '#7a9e7a',
                                         }}
-                                        className="w-3 h-3 rounded-full shadow-sm ring-4 ring-cream-50"
+                                        className="w-3 h-3 rounded-full shadow-sm ring-4 ring-cream-50 dark:ring-dark-50"
                                     />
                                 </div>
 
@@ -123,7 +123,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                     >
                                         <motion.div
                                             layout
-                                            className="bg-white/80 backdrop-blur-md rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300 border border-sage-100/40"
+                                            className="bg-white/80 dark:bg-dark-200/80 backdrop-blur-md rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300 border border-sage-100/40 dark:border-dark-400/40"
                                         >
                                             {/* Image */}
                                             <motion.div layout="position" className="relative overflow-hidden">
@@ -149,7 +149,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                                         e.stopPropagation();
                                                         onDelete(memory.id);
                                                     }}
-                                                    className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-red-50 hover:text-red-500 cursor-pointer text-slate-400"
+                                                    className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/80 dark:bg-dark-300/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-500 cursor-pointer text-slate-400"
                                                 >
                                                     <FiTrash2 size={12} />
                                                 </button>
@@ -157,7 +157,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                                 {/* Expand indicator */}
                                                 <motion.div
                                                     animate={{ rotate: isExpanded ? 180 : 0 }}
-                                                    className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center text-sage-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                                                    className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-white/70 dark:bg-dark-300/70 backdrop-blur-sm flex items-center justify-center text-sage-600 dark:text-sage-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                                                 >
                                                     <FiChevronDown size={14} />
                                                 </motion.div>
@@ -168,12 +168,12 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center gap-2">
                                                         <div className="w-1.5 h-1.5 rounded-full bg-sage-400" />
-                                                        <time className="text-[11px] font-semibold text-sage-600 tracking-wide uppercase">
+                                                        <time className="text-[11px] font-semibold text-sage-600 dark:text-sage-400 tracking-wide uppercase">
                                                             {format(new Date(memory.assigned_date), 'MMM d, yyyy')}
                                                         </time>
                                                     </div>
                                                     {memory.message && !isExpanded && (
-                                                        <FiMessageSquare size={12} className="text-sage-300" />
+                                                        <FiMessageSquare size={12} className="text-sage-300 dark:text-sage-600" />
                                                     )}
                                                 </div>
 
@@ -187,7 +187,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                                             transition={{ duration: 0.3 }}
                                                             className="overflow-hidden"
                                                         >
-                                                            <p className="text-sm text-slate-600 leading-relaxed mt-2.5 pt-2.5 border-t border-sage-100/50">
+                                                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-2.5 pt-2.5 border-t border-sage-100/50 dark:border-dark-400/50">
                                                                 {memory.message}
                                                             </p>
                                                         </motion.div>
@@ -209,7 +209,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="w-6 h-6 rounded-full bg-sage-200 ring-4 ring-sage-100/50 z-10 flex items-center justify-center"
+                    className="w-6 h-6 rounded-full bg-sage-200 dark:bg-dark-400 ring-4 ring-sage-100/50 dark:ring-dark-300/50 z-10 flex items-center justify-center"
                 >
                     <div className="w-2 h-2 rounded-full bg-sage-400" />
                 </motion.div>
@@ -220,7 +220,7 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-center text-xs text-slate-400 mt-4"
+                className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4"
             >
                 {memories.length} {memories.length === 1 ? 'memory' : 'memories'} along the road
             </motion.p>

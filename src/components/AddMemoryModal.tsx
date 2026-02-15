@@ -24,7 +24,6 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
         if (!file.type.startsWith('image/')) return;
         setSelectedFile(file);
         setError(null);
-        // Create preview URL
         const url = URL.createObjectURL(file);
         setImagePreview(url);
     }, []);
@@ -45,7 +44,6 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
         setError(null);
         try {
             await onSubmit(selectedFile, date, message.trim() || undefined);
-            // Reset
             setSelectedFile(null);
             setImagePreview(null);
             setDate(new Date().toISOString().split('T')[0]);
@@ -78,7 +76,7 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
                     onClick={handleClose}
                 >
                     {/* Backdrop */}
-                    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+                    <div className="absolute inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm" />
 
                     {/* Modal */}
                     <motion.div
@@ -87,14 +85,14 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
                         exit={{ opacity: 0, y: 100, scale: 0.95 }}
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                         onClick={(e) => e.stopPropagation()}
-                        className="relative bg-cream-50 rounded-3xl shadow-elevated w-full max-w-md overflow-hidden"
+                        className="relative bg-cream-50 dark:bg-dark-200 rounded-3xl shadow-elevated w-full max-w-md overflow-hidden"
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between p-5 border-b border-sage-100/50">
-                            <h2 className="text-lg font-semibold text-slate-800">New Memory</h2>
+                        <div className="flex items-center justify-between p-5 border-b border-sage-100/50 dark:border-dark-400/50">
+                            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">New Memory</h2>
                             <button
                                 onClick={handleClose}
-                                className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors cursor-pointer"
+                                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-dark-400 flex items-center justify-center text-slate-400 hover:bg-slate-200 dark:hover:bg-dark-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
                             >
                                 <FiX size={16} />
                             </button>
@@ -104,7 +102,7 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
                         <div className="p-5 space-y-5">
                             {/* Error message */}
                             {error && (
-                                <div className="px-4 py-2.5 rounded-xl bg-red-50 border border-red-200/60 text-sm text-red-600">
+                                <div className="px-4 py-2.5 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200/60 dark:border-red-800/40 text-sm text-red-600 dark:text-red-400">
                                     {error}
                                 </div>
                             )}
@@ -119,10 +117,10 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
                                 onDrop={handleDrop}
                                 onClick={() => fileInputRef.current?.click()}
                                 className={`relative rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer overflow-hidden ${isDragging
-                                    ? 'border-sage-400 bg-sage-50'
+                                    ? 'border-sage-400 bg-sage-50 dark:bg-sage-900/20'
                                     : imagePreview
                                         ? 'border-transparent'
-                                        : 'border-sage-200 hover:border-sage-300 bg-sage-50/50'
+                                        : 'border-sage-200 dark:border-dark-500 hover:border-sage-300 dark:hover:border-dark-600 bg-sage-50/50 dark:bg-dark-300/50'
                                     }`}
                             >
                                 {imagePreview ? (
@@ -140,10 +138,10 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
                                     </div>
                                 ) : (
                                     <div className="flex flex-col items-center justify-center py-10">
-                                        <div className="w-12 h-12 rounded-full bg-sage-100 flex items-center justify-center mb-3">
-                                            <FiImage className="text-sage-500" size={20} />
+                                        <div className="w-12 h-12 rounded-full bg-sage-100 dark:bg-dark-400 flex items-center justify-center mb-3">
+                                            <FiImage className="text-sage-500 dark:text-sage-400" size={20} />
                                         </div>
-                                        <p className="text-sm font-medium text-slate-600">Drop an image here</p>
+                                        <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Drop an image here</p>
                                         <p className="text-xs text-slate-400 mt-1">or click to browse</p>
                                     </div>
                                 )}
@@ -161,30 +159,30 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
 
                             {/* Date picker */}
                             <div>
-                                <label className="flex items-center gap-2 text-sm font-medium text-slate-600 mb-2">
-                                    <FiCalendar size={14} className="text-sage-500" />
+                                <label className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
+                                    <FiCalendar size={14} className="text-sage-500 dark:text-sage-400" />
                                     Date
                                 </label>
                                 <input
                                     type="date"
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
-                                    className="w-full px-4 py-2.5 bg-white rounded-xl border border-sage-200/60 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent transition-all"
+                                    className="w-full px-4 py-2.5 bg-white dark:bg-dark-300 rounded-xl border border-sage-200/60 dark:border-dark-500 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-sage-300 dark:focus:ring-sage-600 focus:border-transparent transition-all"
                                 />
                             </div>
 
                             {/* Message */}
                             <div>
-                                <label className="flex items-center gap-2 text-sm font-medium text-slate-600 mb-2">
-                                    <FiMessageSquare size={14} className="text-sage-500" />
-                                    Note <span className="text-slate-400 font-normal">(optional)</span>
+                                <label className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
+                                    <FiMessageSquare size={14} className="text-sage-500 dark:text-sage-400" />
+                                    Note <span className="text-slate-400 dark:text-slate-500 font-normal">(optional)</span>
                                 </label>
                                 <textarea
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     placeholder="What makes this moment special?"
                                     rows={3}
-                                    className="w-full px-4 py-2.5 bg-white rounded-xl border border-sage-200/60 text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent transition-all resize-none"
+                                    className="w-full px-4 py-2.5 bg-white dark:bg-dark-300 rounded-xl border border-sage-200/60 dark:border-dark-500 text-sm text-slate-700 dark:text-slate-200 placeholder:text-slate-300 dark:placeholder:text-dark-700 focus:outline-none focus:ring-2 focus:ring-sage-300 dark:focus:ring-sage-600 focus:border-transparent transition-all resize-none"
                                 />
                             </div>
                         </div>
@@ -196,7 +194,7 @@ export default function AddMemoryModal({ isOpen, onClose, onSubmit }: AddMemoryM
                                 disabled={!selectedFile || isSubmitting}
                                 className={`w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${selectedFile && !isSubmitting
                                     ? 'bg-gradient-to-r from-sage-400 to-sage-500 text-white shadow-md hover:shadow-lg hover:from-sage-500 hover:to-sage-600 active:scale-[0.98]'
-                                    : 'bg-slate-100 text-slate-300 cursor-not-allowed'
+                                    : 'bg-slate-100 dark:bg-dark-400 text-slate-300 dark:text-dark-700 cursor-not-allowed'
                                     }`}
                             >
                                 {isSubmitting ? (

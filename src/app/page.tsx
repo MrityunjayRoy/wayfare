@@ -32,7 +32,7 @@ function MainContent() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-cream-50">
+        <div className="min-h-screen bg-cream-50 dark:bg-dark-50 transition-colors duration-300">
             <Header mode={state.viewMode} onModeChange={setViewMode} />
 
             <main className="relative">
