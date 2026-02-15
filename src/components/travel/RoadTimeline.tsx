@@ -65,8 +65,8 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                     {/* Month label */}
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: groupIndex * 0.1 }}
                         className="relative flex justify-center mb-6 mt-4"
                     >
                         <span className="relative z-10 px-4 py-1.5 rounded-full bg-sage-100 text-xs font-semibold text-sage-700 tracking-wider uppercase shadow-soft border border-sage-200/50">
@@ -101,8 +101,8 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                     <motion.div
                                         animate={{ scaleX: isHovered ? 1 : 0.6, opacity: isHovered ? 1 : 0.4 }}
                                         className={`h-full bg-gradient-to-r ${side === 'left'
-                                                ? 'from-sage-300 to-sage-400 origin-right'
-                                                : 'from-sage-400 to-sage-300 origin-left'
+                                            ? 'from-sage-300 to-sage-400 origin-right'
+                                            : 'from-sage-400 to-sage-300 origin-left'
                                             }`}
                                     />
                                 </div>
@@ -114,9 +114,8 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
                                     <motion.div
                                         id={`memory-${memory.assigned_date}`}
                                         initial={{ opacity: 0, x: side === 'left' ? -30 : 30 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true, margin: '-40px' }}
-                                        transition={{ duration: 0.5, delay: index * 0.08 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.08 + groupIndex * 0.1 }}
                                         onHoverStart={() => setHoveredId(memory.id)}
                                         onHoverEnd={() => setHoveredId(null)}
                                         onClick={() => setExpandedId(isExpanded ? null : memory.id)}
@@ -208,8 +207,8 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
             <div className="relative flex justify-center mt-4">
                 <motion.div
                     initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3 }}
                     className="w-6 h-6 rounded-full bg-sage-200 ring-4 ring-sage-100/50 z-10 flex items-center justify-center"
                 >
                     <div className="w-2 h-2 rounded-full bg-sage-400" />
@@ -219,8 +218,8 @@ export default function RoadTimeline({ memories, onDelete }: RoadTimelineProps) 
             {/* Memory count */}
             <motion.p
                 initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
                 className="text-center text-xs text-slate-400 mt-4"
             >
                 {memories.length} {memories.length === 1 ? 'memory' : 'memories'} along the road

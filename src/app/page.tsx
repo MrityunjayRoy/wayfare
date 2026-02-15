@@ -8,16 +8,28 @@ import TravelView from '@/components/travel/TravelView';
 import StaticView from '@/components/static/StaticView';
 import QuickAddFab from '@/components/QuickAddFab';
 import AddMemoryModal from '@/components/AddMemoryModal';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 function MainContent() {
     const { state, addMemory, deleteMemory, setViewMode } = useMemory();
     const [showModal, setShowModal] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
-    const handleDelete = useCallback(async (id: string) => {
-        const confirmed = window.confirm('Are you sure you want to delete this memory? This action cannot be undone.');
-        if (!confirmed) return;
-        await deleteMemory(id);
-    }, [deleteMemory]);
+    const handleDeleteRequest = useCallback((id: string) => {
+        setDeleteTarget(id);
+    }, []);
+
+    const handleDeleteConfirm = useCallback(async () => {
+        if (deleteTarget) {
+            const id = deleteTarget;
+            setDeleteTarget(null);
+            await deleteMemory(id);
+        }
+    }, [deleteTarget, deleteMemory]);
+
+    const handleDeleteCancel = useCallback(() => {
+        setDeleteTarget(null);
+    }, []);
 
     return (
         <div className="min-h-screen bg-cream-50">
@@ -34,8 +46,8 @@ function MainContent() {
                             transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                         >
                             <TravelView
-                                memories={state.memories.filter(m => m.mode_type === 'travel')}
-                                onDelete={handleDelete}
+                                memories={state.memories}
+                                onDelete={handleDeleteRequest}
                             />
                         </motion.div>
                     ) : (
@@ -47,8 +59,8 @@ function MainContent() {
                             transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                         >
                             <StaticView
-                                memories={state.memories.filter(m => m.mode_type === 'static')}
-                                onDelete={handleDelete}
+                                memories={state.memories}
+                                onDelete={handleDeleteRequest}
                             />
                         </motion.div>
                     )}
@@ -61,6 +73,17 @@ function MainContent() {
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
                 onSubmit={addMemory}
+            />
+
+            <ConfirmDialog
+                isOpen={deleteTarget !== null}
+                title="Delete Memory"
+                message="Are you sure you want to delete this memory? This action cannot be undone."
+                confirmLabel="Delete"
+                cancelLabel="Keep"
+                variant="danger"
+                onConfirm={handleDeleteConfirm}
+                onCancel={handleDeleteCancel}
             />
         </div>
     );
